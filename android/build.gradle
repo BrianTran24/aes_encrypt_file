@@ -1,4 +1,4 @@
-group = "com.example.ase_encrypt_file"
+group = "com.example.aes_encrypt_file"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -25,7 +25,7 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
-    namespace = "com.example.ase_encrypt_file"
+    namespace = "com.example.aes_encrypt_file"
 
     compileSdk = 36
 
