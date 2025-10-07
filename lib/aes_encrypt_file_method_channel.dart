@@ -9,11 +9,6 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('aes_encrypt_file');
 
-  @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
 
   @override
   Future<bool> decryptFile({required String inputPath, required String outputPath, required String key, String? iv}) async{

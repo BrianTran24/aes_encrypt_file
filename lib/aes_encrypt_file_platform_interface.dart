@@ -23,13 +23,10 @@ abstract class AesEncryptFilePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
+
 
   Future<bool> encryptFile({required String inputPath, required String outputPath, required String key, String? iv});
 
   Future<bool> decryptFile({required String inputPath, required String outputPath, required String key, String? iv});
 
-  Future<int> getFileSize(String path);
 }

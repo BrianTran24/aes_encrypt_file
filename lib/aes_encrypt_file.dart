@@ -2,9 +2,6 @@
 import 'aes_encrypt_file_platform_interface.dart';
 
 class AesEncryptFile {
-  Future<String?> getPlatformVersion() {
-    return AesEncryptFilePlatform.instance.getPlatformVersion();
-  }
 
    Future<bool> encryptFile({
     required String inputPath,
@@ -34,7 +31,5 @@ class AesEncryptFile {
     );
   }
 
-  Future<int> getFileSize(String path) {
-    return AesEncryptFilePlatform.instance.getFileSize(path);
-  }
+
 }
