@@ -49,7 +49,6 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
     } on PlatformException {
       return false;
     }
-    throw UnimplementedError();
   }
 
   @override
