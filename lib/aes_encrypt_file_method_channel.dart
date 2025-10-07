@@ -29,7 +29,6 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
       final bool result = await methodChannel.invokeMethod('decryptFile', args);
       return result;
     } on PlatformException catch (e) {
-      print('Decryption failed: ${e.message}');
       return false;
     }
   }
@@ -48,7 +47,6 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
       final bool result = await methodChannel.invokeMethod('encryptFile', args);
       return result;
     } on PlatformException catch (e) {
-      print('Encryption failed: ${e.message}');
       return false;
     }
     throw UnimplementedError();
@@ -60,7 +58,6 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
       final int size = await methodChannel.invokeMethod('getFileSize', path);
       return size;
     } on PlatformException catch (e) {
-      print('Get file size failed: ${e.message}');
       return -1;
     }
   }
