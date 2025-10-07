@@ -46,13 +46,4 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
     }
   }
 
-  @override
-  Future<int> getFileSize(String path) async{
-    try {
-      final int size = await methodChannel.invokeMethod('getFileSize', path);
-      return size;
-    } on PlatformException {
-      return -1;
-    }
-  }
 }
