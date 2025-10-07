@@ -14,7 +14,6 @@ class MemoryMonitor {
         _startRss = processInfo;
         _peakRss = processInfo;
       } catch (e) {
-        print('Unable to get RSS: $e');
       }
     }
   }

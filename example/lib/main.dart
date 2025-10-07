@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final String _platformVersion = 'Unknown';
   final _aesEncryptFilePlugin = AesEncryptFile();
-  final _fileEncryptor = FileEncrypter();
+
   String? _selectedVideoPath;
   String? _encryptedPath;
   String? _encryptedPathFileEncryptor;
