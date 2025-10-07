@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:aes_encrypt_file/aes_encrypt_file.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,7 +20,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  final String _platformVersion = 'Unknown';
   final _aesEncryptFilePlugin = AesEncryptFile();
   final _fileEncryptor = FileEncrypter();
   String? _selectedVideoPath;
@@ -123,7 +122,7 @@ class _MyAppState extends State<MyApp> {
           _statusMessage = 'Mã hóa thất bại';
         });
       }
-    } catch (e, s) {
+    } catch (e) {
       setState(() {
         _statusMessage = 'Lỗi khi mã hóa: $e';
       });
@@ -183,8 +182,8 @@ class _MyAppState extends State<MyApp> {
           _statusMessage =
               'Giải mã Native thành công!\n'
               'Thời gian: ${stopwatch.elapsedMilliseconds}ms\n'
-              'File gốc: ${originalSize} bytes\n'
-              'File giải mã: ${decryptedSize} bytes\n'
+              'File gốc: $originalSize bytes\n'
+              'File giải mã: $decryptedSize bytes\n'
               '${memoryReport.toDisplayString()}\n'
               'Đã lưu tại: $decryptedPath';
         });
@@ -317,8 +316,8 @@ class _MyAppState extends State<MyApp> {
           _statusMessage =
               'Giải mã file_encryptor thành công!\n'
               'Thời gian: ${stopwatch.elapsedMilliseconds}ms\n'
-              'File gốc: ${originalSize} bytes\n'
-              'File giải mã: ${decryptedSize} bytes\n'
+              'File gốc: $originalSize bytes\n'
+              'File giải mã: $decryptedSize bytes\n'
               '${memoryReport.toDisplayString()}\n'
               'Đã lưu tại: $decryptedPath';
         });
