@@ -4,7 +4,7 @@
 
 // JNI wrapper for nativeEncryptFile
 JNIEXPORT jint JNICALL
-Java_com_example_ase_1encryp_1file_AseEncrypFilePlugin_nativeEncryptFile(
+Java_com_example_aes_1encrypt_1file_AesEncryptFilePlugin_nativeEncryptFile(
     JNIEnv *env,
     jobject thiz,
     jstring inputPath,
@@ -39,7 +39,7 @@ Java_com_example_ase_1encryp_1file_AseEncrypFilePlugin_nativeEncryptFile(
 
 // JNI wrapper for nativeDecryptFile
 JNIEXPORT jint JNICALL
-Java_com_example_ase_1encryp_1file_AseEncrypFilePlugin_nativeDecryptFile(
+Java_com_example_aes_1encrypt_1file_AesEncryptFilePlugin_nativeDecryptFile(
     JNIEnv *env,
     jobject thiz,
     jstring inputPath,
@@ -74,7 +74,7 @@ Java_com_example_ase_1encryp_1file_AseEncrypFilePlugin_nativeDecryptFile(
 
 // JNI wrapper for nativeGetFileSize
 JNIEXPORT jlong JNICALL
-Java_com_example_ase_1encryp_1file_AseEncrypFilePlugin_nativeGetFileSize(
+Java_com_example_aes_1encrypt_1file_AesEncryptFilePlugin_nativeGetFileSize(
     JNIEnv *env,
     jobject thiz,
     jstring path) {
