@@ -9,3 +9,6 @@
 
 ## [0.0.4]
 - Fix: example crash 
+
+## [0.0.5]
+- Fix: update ReadMe.md

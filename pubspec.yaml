@@ -1,6 +1,6 @@
 name: aes_encrypt_file
-description: "This is a Flutter library used for file encryption, which enhances processing speed by integrating C source code through FFI (Foreign Function Interface). This library utilizes packages such as crypto and pointycastle for encryption algorithms, while also being extensible to leverage native C for performance optimization when handling large data."
-version: 0.0.4
+description: "This is a Flutter library used for file encryption, using language C  for performance optimization when handling large data."
+version: 0.0.5
 homepage: https://github.com/BrianTran24/aes_encrypt_file.git
 
 
