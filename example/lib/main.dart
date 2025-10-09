@@ -23,9 +23,10 @@ class _MyAppState extends State<MyApp> {
   final String _platformVersion = 'Unknown';
   final _aesEncryptFilePlugin = AesEncryptFile();
 
-  String? _selectedVideoPath;
+  String? _selectedImagePath;
   String? _encryptedPath;
   String? _encryptedPathFileEncryptor;
+  String? _decryptedImagePath;
   bool _isEncrypting = false;
   bool _isDecrypting = false;
   bool _isEncryptingFileEncryptor = false;
@@ -39,49 +40,50 @@ class _MyAppState extends State<MyApp> {
   }
 
 
-  // Chọn video từ thư viện
-  Future<void> _pickVideo() async {
+  // Chọn ảnh từ thư viện
+  Future<void> _pickImage() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.video,
+        type: FileType.image,
         allowMultiple: false,
       );
 
       if (result != null && result.files.single.path != null) {
         setState(() {
-          _selectedVideoPath = result.files.single.path;
-          _statusMessage = 'Đã chọn video: ${result.files.single.name}';
+          _selectedImagePath = result.files.single.path;
+          _statusMessage = 'Đã chọn ảnh: ${result.files.single.name}';
+          _decryptedImagePath = null; // Reset decrypted image when new image is selected
         });
       } else {
         setState(() {
-          _statusMessage = 'Không chọn video nào';
+          _statusMessage = 'Không chọn ảnh nào';
         });
       }
     } catch (e) {
       setState(() {
-        _statusMessage = 'Lỗi khi chọn video: $e';
+        _statusMessage = 'Lỗi khi chọn ảnh: $e';
       });
     }
   }
 
-  // Mã hóa video đã chọn
-  Future<void> _encryptVideo() async {
-    if (_selectedVideoPath == null) {
+  // Mã hóa ảnh đã chọn
+  Future<void> _encryptImage() async {
+    if (_selectedImagePath == null) {
       setState(() {
-        _statusMessage = 'Vui lòng chọn video trước';
+        _statusMessage = 'Vui lòng chọn ảnh trước';
       });
       return;
     }
 
     setState(() {
       _isEncrypting = true;
-      _statusMessage = 'Đang mã hóa video...';
+      _statusMessage = 'Đang mã hóa ảnh...';
     });
 
     try {
       // Tạo đường dẫn cho file đã mã hóa
       final directory = await getApplicationDocumentsDirectory();
-      final fileName = _selectedVideoPath!.split('/').last;
+      final fileName = _selectedImagePath!.split('/').last;
       final encryptedPath = '${directory.path}/encrypted_$fileName';
 
       // Khóa mã hóa (trong thực tế nên sử dụng khóa an toàn hơn)
@@ -95,7 +97,7 @@ class _MyAppState extends State<MyApp> {
 
       // Thực hiện mã hóa
       final success = await _aesEncryptFilePlugin.encryptFile(
-        inputPath: _selectedVideoPath!,
+        inputPath: _selectedImagePath!,
         outputPath: encryptedPath,
         key: encryptionKey,
         iv: 'mySecretIV'
@@ -137,7 +139,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _decryptWithDart() async {
     if (_encryptedPath == null) {
       setState(() {
-        _statusMessage = 'Vui lòng mã hóa video trước';
+        _statusMessage = 'Vui lòng mã hóa ảnh trước';
       });
       return;
     }
@@ -149,7 +151,7 @@ class _MyAppState extends State<MyApp> {
 
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final fileName = _selectedVideoPath!.split('/').last;
+      final fileName = _selectedImagePath!.split('/').last;
       final decryptedPath = '${directory.path}/decrypted_dart_$fileName';
 
       const encryptionKey = 'mySecretKey12345';
@@ -172,13 +174,14 @@ class _MyAppState extends State<MyApp> {
 
       if (success) {
         // Kiểm tra kích thước file để xác minh
-        final originalFile = File(_selectedVideoPath!);
+        final originalFile = File(_selectedImagePath!);
         final decryptedFile = File(decryptedPath);
 
         final originalSize = await originalFile.length();
         final decryptedSize = await decryptedFile.length();
 
         setState(() {
+          _decryptedImagePath = decryptedPath;
           _statusMessage =
               'Giải mã Native thành công!\n'
               'Thời gian: ${stopwatch.elapsedMilliseconds}ms\n'
@@ -205,9 +208,9 @@ class _MyAppState extends State<MyApp> {
 
   // Mã hóa bằng file_encryptor
   Future<void> _encryptWithFileEncryptor() async {
-    if (_selectedVideoPath == null) {
+    if (_selectedImagePath == null) {
       setState(() {
-        _statusMessage = 'Vui lòng chọn video trước';
+        _statusMessage = 'Vui lòng chọn ảnh trước';
       });
       return;
     }
@@ -219,7 +222,7 @@ class _MyAppState extends State<MyApp> {
 
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final fileName = _selectedVideoPath!.split('/').last;
+      final fileName = _selectedImagePath!.split('/').last;
       final encryptedPath = '${directory.path}/encrypted_fe_$fileName';
 
 
@@ -230,10 +233,10 @@ class _MyAppState extends State<MyApp> {
 
       // Thực hiện mã hóa bằng file_encryptor
       encryptionKey =  await FileEncrypter.encrypt(
-        inFileName: _selectedVideoPath!,
+        inFileName: _selectedImagePath!,
         outFileName: encryptedPath,
 
-        // filePath: _selectedVideoPath!,
+        // filePath: _selectedImagePath!,
         // outputPath: encryptedPath,
         // key: encryptionKey,
       );
@@ -286,7 +289,7 @@ class _MyAppState extends State<MyApp> {
 
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final fileName = _selectedVideoPath!.split('/').last;
+      final fileName = _selectedImagePath!.split('/').last;
       final decryptedPath = '${directory.path}/decrypted_fe_$fileName';
 
       // const encryptionKey = 'mySecretKey12345';
@@ -308,11 +311,12 @@ class _MyAppState extends State<MyApp> {
 
       final decryptedFile = File(decryptedPath);
       if (await decryptedFile.exists()) {
-        final originalFile = File(_selectedVideoPath!);
+        final originalFile = File(_selectedImagePath!);
         final originalSize = await originalFile.length();
         final decryptedSize = await decryptedFile.length();
 
         setState(() {
+          _decryptedImagePath = decryptedPath;
           _statusMessage =
               'Giải mã file_encryptor thành công!\n'
               'Thời gian: ${stopwatch.elapsedMilliseconds}ms\n'
@@ -342,7 +346,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('AES Video Encryption Example'),
+          title: const Text('AES Image Encryption Example'),
           backgroundColor: Colors.blue,
         ),
         body: SingleChildScrollView(
@@ -357,7 +361,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 const SizedBox(height: 20),
 
-                // Nút chọn video
+                // Nút chọn ảnh
                 ElevatedButton.icon(
                   onPressed:
                       (_isEncrypting ||
@@ -365,10 +369,10 @@ class _MyAppState extends State<MyApp> {
                           _isEncryptingFileEncryptor ||
                           _isDecryptingFileEncryptor)
                       ? null
-                      : _pickVideo,
-                  icon: const Icon(Icons.video_library),
+                      : _pickImage,
+                  icon: const Icon(Icons.image),
                   label: const Text(
-                    'Chọn Video từ Thư viện',
+                    'Chọn Ảnh từ Thư viện',
                     style: TextStyle(fontSize: 16),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -380,15 +384,15 @@ class _MyAppState extends State<MyApp> {
 
                 const SizedBox(height: 16),
 
-                // Nút mã hóa video
+                // Nút mã hóa ảnh
                 ElevatedButton.icon(
                   onPressed:
-                      (_selectedVideoPath != null &&
+                      (_selectedImagePath != null &&
                           !_isEncrypting &&
                           !_isDecrypting &&
                           !_isEncryptingFileEncryptor &&
                           !_isDecryptingFileEncryptor)
-                      ? _encryptVideo
+                      ? _encryptImage
                       : null,
                   icon: _isEncrypting
                       ? const SizedBox(
@@ -401,7 +405,7 @@ class _MyAppState extends State<MyApp> {
                         )
                       : const Icon(Icons.lock),
                   label: Text(
-                    _isEncrypting ? 'Đang mã hóa...' : 'Mã hóa Video (Native)',
+                    _isEncrypting ? 'Đang mã hóa...' : 'Mã hóa Ảnh (Native)',
                     style: const TextStyle(fontSize: 16),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -436,7 +440,7 @@ class _MyAppState extends State<MyApp> {
                   label: Text(
                     _isDecrypting
                         ? 'Đang giải mã...'
-                        : 'Giải mã video (Native)',
+                        : 'Giải mã ảnh (Native)',
                     style: const TextStyle(fontSize: 16),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -460,7 +464,7 @@ class _MyAppState extends State<MyApp> {
                 // Nút mã hóa bằng file_encryptor
                 ElevatedButton.icon(
                   onPressed:
-                      (_selectedVideoPath != null &&
+                      (_selectedImagePath != null &&
                           !_isEncrypting &&
                           !_isDecrypting &&
                           !_isEncryptingFileEncryptor &&
@@ -480,7 +484,7 @@ class _MyAppState extends State<MyApp> {
                   label: Text(
                     _isEncryptingFileEncryptor
                         ? 'Đang mã hóa...'
-                        : 'Mã hóa Video (file_encryptor)',
+                        : 'Mã hóa Ảnh (file_encryptor)',
                     style: const TextStyle(fontSize: 16),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -528,7 +532,7 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 20),
 
                 // Hiển thị thông tin
-                if (_selectedVideoPath != null)
+                if (_selectedImagePath != null)
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -540,7 +544,7 @@ class _MyAppState extends State<MyApp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Video đã chọn:',
+                          'Ảnh đã chọn:',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
@@ -548,8 +552,43 @@ class _MyAppState extends State<MyApp> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          _selectedVideoPath!,
+                          _selectedImagePath!,
                           style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                const SizedBox(height: 16),
+
+                // Hiển thị ảnh đã giải mã
+                if (_decryptedImagePath != null)
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.green.shade200),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Ảnh đã giải mã:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.green,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            File(_decryptedImagePath!),
+                            fit: BoxFit.contain,
+                            width: double.infinity,
+                          ),
                         ),
                       ],
                     ),
