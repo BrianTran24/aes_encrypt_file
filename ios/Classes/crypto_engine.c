@@ -260,7 +260,12 @@ int crypto_decrypt_file(const char* input_path, const char* output_path, const c
     }
 
     if (data_out_moved > 0) {
-        fwrite(out_buffer, 1, data_out_moved, output_file);
+        if (fwrite(out_buffer, 1, data_out_moved, output_file) != data_out_moved) {
+            CCCryptorRelease(cryptor);
+            fclose(input_file);
+            fclose(output_file);
+            return -7;
+        }
     }
 
     // Cleanup
