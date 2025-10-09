@@ -191,7 +191,12 @@ int aes_decrypt_file(const char* input_path, const char* output_path, const char
             fclose(output_file);
             return -5;
         }
-        fwrite(out_buffer, 1, out_length, output_file);
+        if (fwrite(out_buffer, 1, out_length, output_file) != (size_t)out_length) {
+            EVP_CIPHER_CTX_free(ctx);
+            fclose(input_file);
+            fclose(output_file);
+            return -7;
+        }
         total_decrypted += bytes_read;
     }
 
@@ -202,7 +207,14 @@ int aes_decrypt_file(const char* input_path, const char* output_path, const char
         fclose(output_file);
         return -6;
     }
-    fwrite(out_buffer, 1, out_length, output_file);
+    if (out_length > 0) {
+        if (fwrite(out_buffer, 1, out_length, output_file) != (size_t)out_length) {
+            EVP_CIPHER_CTX_free(ctx);
+            fclose(input_file);
+            fclose(output_file);
+            return -8;
+        }
+    }
 
     // Cleanup
     EVP_CIPHER_CTX_free(ctx);
@@ -276,7 +288,12 @@ int aes_decrypt_file_with_iv(const char* input_path, const char* output_path, co
             fclose(output_file);
             return -5;
         }
-        fwrite(out_buffer, 1, out_length, output_file);
+        if (fwrite(out_buffer, 1, out_length, output_file) != (size_t)out_length) {
+            EVP_CIPHER_CTX_free(ctx);
+            fclose(input_file);
+            fclose(output_file);
+            return -7;
+        }
         total_decrypted += bytes_read;
     }
 
@@ -287,7 +304,14 @@ int aes_decrypt_file_with_iv(const char* input_path, const char* output_path, co
         fclose(output_file);
         return -6;
     }
-    fwrite(out_buffer, 1, out_length, output_file);
+    if (out_length > 0) {
+        if (fwrite(out_buffer, 1, out_length, output_file) != (size_t)out_length) {
+            EVP_CIPHER_CTX_free(ctx);
+            fclose(input_file);
+            fclose(output_file);
+            return -8;
+        }
+    }
 
     // Cleanup
     EVP_CIPHER_CTX_free(ctx);
