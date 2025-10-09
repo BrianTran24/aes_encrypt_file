@@ -12,3 +12,6 @@
 
 ## [0.0.5]
 - Fix: update ReadMe.md
+
+## [0.0.6]
+- Fix: File output don't save 
