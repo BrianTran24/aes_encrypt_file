@@ -33,7 +33,9 @@ class _MyAppState extends State<MyApp> {
   bool _isDecryptingFileEncryptor = false;
   String _statusMessage = '';
 
-  var encryptionKey;
+  var encryptionKey ='encryptionKey';
+  var ivStringKey = 'kA7xP2qL9sD4fH1k';
+
   @override
   void initState() {
     super.initState();
@@ -86,8 +88,6 @@ class _MyAppState extends State<MyApp> {
       final fileName = _selectedImagePath!.split('/').last;
       final encryptedPath = '${directory.path}/encrypted_$fileName';
 
-      // Khóa mã hóa (trong thực tế nên sử dụng khóa an toàn hơn)
-      const encryptionKey = 'mySecretKey12345';
 
       this.encryptionKey = encryptionKey;
 
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
         inputPath: _selectedImagePath!,
         outputPath: encryptedPath,
         key: encryptionKey,
-        iv: 'mySecretIV'
+        iv: ivStringKey
       );
 
       memoryMonitor.updatePeak();
@@ -154,8 +154,6 @@ class _MyAppState extends State<MyApp> {
       final fileName = _selectedImagePath!.split('/').last;
       final decryptedPath = '${directory.path}/decrypted_dart_$fileName';
 
-      const encryptionKey = 'mySecretKey12345';
-
       final stopwatch = Stopwatch()..start();
       final memoryMonitor = MemoryMonitor();
       memoryMonitor.start();
@@ -165,7 +163,7 @@ class _MyAppState extends State<MyApp> {
         inputPath: _encryptedPath!,
         outputPath: decryptedPath,
         key: encryptionKey,
-
+          iv: ivStringKey
       );
 
       memoryMonitor.updatePeak();

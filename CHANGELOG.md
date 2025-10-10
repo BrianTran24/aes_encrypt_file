@@ -15,3 +15,6 @@
 
 ## [0.0.6]
 - Fix: File output don't save 
+
+## [0.0.7]
+- Fix: decrypted file size issue with iv 
