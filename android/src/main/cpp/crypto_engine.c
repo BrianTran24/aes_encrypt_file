@@ -240,6 +240,12 @@ int aes_decrypt_file_with_iv(const char* input_path, const char* output_path, co
     if (iv_string != NULL && strlen(iv_string) > 0) {
         // Use provided IV string (for decrypting files encrypted with custom IV)
         prepare_iv(iv_string, iv);
+        // Skip the IV in the encrypted file since it was written during encryption
+        if (fseek(input_file, IV_LENGTH, SEEK_SET) != 0) {
+            fclose(input_file);
+            fclose(output_file);
+            return -2;
+        }
     } else {
         // Read IV from input file (standard behavior)
         if (fread(iv, 1, IV_LENGTH, input_file) != IV_LENGTH) {
@@ -276,10 +282,6 @@ int aes_decrypt_file_with_iv(const char* input_path, const char* output_path, co
     int bytes_read;
     int out_length;
     long long total_decrypted = 0;
-
-    // If IV was provided (not read from file), we need to skip the IV in the file
-    // Actually, if custom IV is provided, we assume the entire file is encrypted data
-    // If no IV is provided, we already read it from the file above
 
     while ((bytes_read = fread(in_buffer, 1, BUFFER_SIZE, input_file)) > 0) {
         if (EVP_DecryptUpdate(ctx, out_buffer, &out_length, in_buffer, bytes_read) != 1) {

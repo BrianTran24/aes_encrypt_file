@@ -291,6 +291,12 @@ int crypto_decrypt_file_with_iv(const char* input_path, const char* output_path,
     if (iv_string != NULL && strlen(iv_string) > 0) {
         // Use provided IV string (for decrypting files encrypted with custom IV)
         prepare_iv(iv_string, iv);
+        // Skip the IV in the encrypted file since it was written during encryption
+        if (fseek(input_file, IV_LENGTH, SEEK_SET) != 0) {
+            fclose(input_file);
+            fclose(output_file);
+            return -2;
+        }
     } else {
         // Read IV from input file (standard behavior)
         if (fread(iv, 1, IV_LENGTH, input_file) != IV_LENGTH) {
