@@ -17,6 +17,9 @@ A new Flutter project.
   s.platform = :ios, '13.0'
   s.requires_arc = true
   
+  # Swift version for interoperability
+  s.swift_version = '5.0'
+  
   # Required system frameworks for encryption
   s.frameworks = 'Security'
 
