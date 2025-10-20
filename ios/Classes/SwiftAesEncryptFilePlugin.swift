@@ -1,8 +1,10 @@
 import Flutter
 import UIKit
 
-// This file exists to ensure proper Objective-C/Swift interoperability
-// The actual plugin implementation is in AesEncryptFilePlugin.m
+// Swift wrapper needed because modern Flutter iOS projects use Swift by default
+// and require Swift plugin registration to avoid MissingPluginException.
+// This class delegates to the Objective-C implementation in AesEncryptFilePlugin.m
+// which contains the actual encryption logic using CommonCrypto.
 public class SwiftAesEncryptFilePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     // Delegate to the Objective-C implementation
