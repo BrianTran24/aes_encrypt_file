@@ -16,8 +16,8 @@
 ## [0.0.6]
 - Fix: File output don't save 
 
-## [0.0.8]
-- Fix: iOS MissingPluginException for encryptFile method by adding Swift plugin wrapper
-
 ## [0.0.7]
-- Fix: decrypted file size issue with iv 
+- Fix: decrypted file size issue with iv
+
+## [0.0.8]
+- Fix: iOS MissingPluginException for encryptFile method by adding Swift plugin wrapper 
