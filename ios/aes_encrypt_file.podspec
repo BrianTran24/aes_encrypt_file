@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'aes_encrypt_file'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter project.'
+  s.version          = '0.0.8'
+  s.summary          = 'A Flutter plugin for AES-256 file encryption with native performance.'
   s.description      = <<-DESC
 A new Flutter project.
                        DESC
@@ -12,6 +12,7 @@ A new Flutter project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
+  s.swift_version = '5.0'
 
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
