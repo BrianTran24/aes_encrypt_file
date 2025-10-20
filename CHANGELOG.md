@@ -17,4 +17,10 @@
 - Fix: File output don't save 
 
 ## [0.0.7]
-- Fix: decrypted file size issue with iv 
+- Fix: decrypted file size issue with iv
+
+## [0.0.8]
+- Fix: MissingPluginException on iOS
+  - Added Swift wrapper for proper plugin registration in Swift-based iOS projects
+  - Updated podspec to include Swift version specification
+  - No breaking changes - all existing functionality remains unchanged 
