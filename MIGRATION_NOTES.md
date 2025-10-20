@@ -51,8 +51,8 @@ The `aes_encrypt_file.podspec` file is kept for **backwards compatibility** with
 ## Dependencies
 
 This plugin has **NO** CocoaPods dependencies. It only uses:
-- iOS `Security` framework (built-in)
-- CommonCrypto (built-in)
+- iOS `Security` framework (built-in) - for secure random number generation
+- CommonCrypto (built-in) - for AES-256 encryption
 - Standard C libraries
 
 ## For Users
