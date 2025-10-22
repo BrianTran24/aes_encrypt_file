@@ -1,6 +1,6 @@
 name: aes_encrypt_file
 description: "This is a Flutter library used for file encryption, using language C  for performance optimization when handling large data."
-version: 0.0.7
+version: 0.0.8
 homepage: https://github.com/BrianTran24/aes_encrypt_file.git
 
 
@@ -41,7 +41,7 @@ flutter:
         package: com.example.aes_encrypt_file
         pluginClass: AesEncryptFilePlugin
       ios:
-        pluginClass: AesEncryptFilePlugin
+        pluginClass: SwiftAesEncryptFilePlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
