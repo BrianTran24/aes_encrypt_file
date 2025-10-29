@@ -18,3 +18,5 @@
 
 ## [0.0.7]
 - Fix: decrypted file size issue with iv 
+## [0.0.8]
+- Android : support 16kb 
