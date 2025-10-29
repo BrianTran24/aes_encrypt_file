@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 3.18.1)
 
 project("native_crypto")
 
+# Enable 16KB page size support for Android 15+ compatibility
+# Ensure proper alignment for 16KB pages
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
+# Add linker flags for 16KB page size compatibility
+# This ensures the native library is compatible with devices using 16KB pages
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=16384")
+
 # Find log library
 find_library(log-lib log)
 
