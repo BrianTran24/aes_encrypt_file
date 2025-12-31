@@ -54,11 +54,11 @@ android {
         minSdk = 24
         
         // Enable 16KB page size support for Android 15+ compatibility
+        // The linker flag in CMakeLists.txt (-Wl,-z,max-page-size=16384) handles page size alignment
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++17"
-                arguments "-DANDROID_STL=c++_shared",
-                          "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+                arguments "-DANDROID_STL=c++_shared"
             }
         }
 
