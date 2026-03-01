@@ -1,14 +1,12 @@
-import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:js_interop';
-import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 import 'aes_encrypt_file_platform_interface.dart';
 import 'src/aes_crypto_web.dart';
+import 'src/crypto_utils.dart';
 
 /// Flutter Web implementation of [AesEncryptFilePlatform].
 ///
@@ -63,19 +61,8 @@ class AesEncryptFileWeb extends AesEncryptFilePlatform {
   }) async {
     try {
       final inputBytes = await _readFile(inputPath);
-      final keyBytes = _prepareKey(key);
-      final ivBytes = iv != null ? _prepareIv(iv) : _randomIv();
-
-      final encryptedBytes =
-          await _crypto.encryptBytes(inputBytes, keyBytes, ivBytes);
-
-      // Prepend the 16-byte IV to the ciphertext — identical to the native
-      // format written by the Android/iOS implementations.
-      final output = Uint8List(16 + encryptedBytes.length);
-      output.setRange(0, 16, ivBytes);
-      output.setRange(16, output.length, encryptedBytes);
-
-      _virtualFileSystem[outputPath] = output;
+      final encryptedBytes = await encryptBytes(plainBytes: inputBytes, key: key, iv: iv);
+      _virtualFileSystem[outputPath] = encryptedBytes;
       return true;
     } catch (e, st) {
       dev.log('encryptFile failed: $e', name: 'AesEncryptFileWeb', error: e, stackTrace: st);
@@ -92,31 +79,51 @@ class AesEncryptFileWeb extends AesEncryptFilePlatform {
   }) async {
     try {
       final inputBytes = await _readFile(inputPath);
-      final keyBytes = _prepareKey(key);
-
-      final Uint8List ivBytes;
-      final Uint8List cipherBytes;
-
-      if (iv != null) {
-        // Derive IV from the provided string; skip the 16-byte header that
-        // was written during encryption (matching native behaviour).
-        ivBytes = _prepareIv(iv);
-        cipherBytes = inputBytes.sublist(16);
-      } else {
-        // Read IV from the first 16 bytes of the file.
-        ivBytes = inputBytes.sublist(0, 16);
-        cipherBytes = inputBytes.sublist(16);
-      }
-
-      final decryptedBytes =
-          await _crypto.decryptBytes(cipherBytes, keyBytes, ivBytes);
-
+      final decryptedBytes = await decryptBytes(cipherBytes: inputBytes, key: key, iv: iv);
       _virtualFileSystem[outputPath] = decryptedBytes;
       return true;
     } catch (e, st) {
       dev.log('decryptFile failed: $e', name: 'AesEncryptFileWeb', error: e, stackTrace: st);
       return false;
     }
+  }
+
+  @override
+  Future<Uint8List> encryptBytes({
+    required Uint8List plainBytes,
+    required String key,
+    String? iv,
+  }) async {
+    final keyBytes = prepareKey(key);
+    final ivBytes = iv != null ? prepareIv(iv) : randomIv();
+    final ciphertext = await _crypto.encryptBytes(plainBytes, keyBytes, ivBytes);
+    // Prepend the 16-byte IV — identical to the native file format.
+    final output = Uint8List(16 + ciphertext.length);
+    output.setRange(0, 16, ivBytes);
+    output.setRange(16, output.length, ciphertext);
+    return output;
+  }
+
+  @override
+  Future<Uint8List> decryptBytes({
+    required Uint8List cipherBytes,
+    required String key,
+    String? iv,
+  }) async {
+    final keyBytes = prepareKey(key);
+    final Uint8List ivBytes;
+    final Uint8List data;
+    if (iv != null) {
+      // Derive IV from the provided string; skip the 16-byte header that
+      // was written during encryption (matching native behaviour).
+      ivBytes = prepareIv(iv);
+      data = cipherBytes.sublist(16);
+    } else {
+      // Read IV from the first 16 bytes of the payload.
+      ivBytes = cipherBytes.sublist(0, 16);
+      data = cipherBytes.sublist(16);
+    }
+    return _crypto.decryptBytes(data, keyBytes, ivBytes);
   }
 
   // -------------------------------------------------------------------------
@@ -139,42 +146,6 @@ class AesEncryptFileWeb extends AesEncryptFilePlatform {
     final response = await _jsFetch(url.toJS).toDart;
     final buffer = await response.arrayBuffer().toDart;
     return buffer.toDart.asUint8List();
-  }
-
-  /// Prepares a 32-byte AES key from [key], matching the native logic:
-  /// - exactly 32 bytes  → use as-is
-  /// - < 32 bytes        → zero-pad to 32 bytes
-  /// - > 32 bytes        → SHA-256 hash
-  static Uint8List _prepareKey(String key) {
-    final bytes = utf8.encode(key);
-    if (bytes.length == 32) return Uint8List.fromList(bytes);
-    if (bytes.length < 32) {
-      final padded = Uint8List(32);
-      padded.setRange(0, bytes.length, bytes);
-      return padded;
-    }
-    return Uint8List.fromList(sha256.convert(bytes).bytes);
-  }
-
-  /// Prepares a 16-byte IV from [iv], matching the native logic:
-  /// - exactly 16 bytes  → use as-is
-  /// - < 16 bytes        → zero-pad to 16 bytes
-  /// - > 16 bytes        → first 16 bytes of SHA-256 hash
-  static Uint8List _prepareIv(String iv) {
-    final bytes = utf8.encode(iv);
-    if (bytes.length == 16) return Uint8List.fromList(bytes);
-    if (bytes.length < 16) {
-      final padded = Uint8List(16);
-      padded.setRange(0, bytes.length, bytes);
-      return padded;
-    }
-    return Uint8List.fromList(sha256.convert(bytes).bytes.sublist(0, 16));
-  }
-
-  /// Generates a cryptographically random 16-byte IV.
-  static Uint8List _randomIv() {
-    final random = Random.secure();
-    return Uint8List.fromList(List.generate(16, (_) => random.nextInt(256)));
   }
 }
 
