@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   plugin_platform_interface: ^2.0.2
   crypto: ^3.0.3
   pointycastle: ^3.9.1
@@ -42,6 +44,9 @@ flutter:
         pluginClass: AesEncryptFilePlugin
       ios:
         pluginClass: AesEncryptFilePlugin
+      web:
+        pluginClass: AesEncryptFileWeb
+        fileName: aes_encrypt_file_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
