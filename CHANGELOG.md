@@ -19,4 +19,6 @@
 ## [0.0.7]
 - Fix: decrypted file size issue with iv 
 ## [0.0.8]
-- Android : support 16kb 
+- Android: support 16KB 
+## [0.0.9]
+- Fix: Android 16KB page size support - removed invalid CMake flag
