@@ -1,11 +1,13 @@
 name: aes_encrypt_file
-description: "This is a Flutter library used for file encryption, using language C  for performance optimization when handling large data."
-version: 0.0.8
-homepage: https://github.com/BrianTran24/aes_encrypt_file.git
-
+description: "High-performance Flutter plugin for AES-256 file encryption and decryption with native C/C++ implementation. Optimized for large files with low memory footprint."
+version: 0.0.9
+homepage: https://github.com/BrianTran24/aes_encrypt_file
+repository: https://github.com/BrianTran24/aes_encrypt_file
+issue_tracker: https://github.com/BrianTran24/aes_encrypt_file/issues
+documentation: https://github.com/BrianTran24/aes_encrypt_file
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.3.0
   flutter: '>=3.3.0'
 
 dependencies:

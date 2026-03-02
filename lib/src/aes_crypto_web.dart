@@ -85,7 +85,7 @@ class AesCryptoImpl extends AesCryptoBase {
     final key = await _importKey(keyBytes, ['encrypt']);
     final algorithm = _aesCtrAlgorithm(ivBytes);
     final cipherBuffer =
-        await _jsCrypto.subtle.encrypt(algorithm, key, plainBytes.toJS).toDart;
+        await _jsCrypto.subtle.encrypt(algorithm, CryptoKey._(key), plainBytes.toJS).toDart;
     return cipherBuffer.toDart.asUint8List();
   }
 
@@ -98,7 +98,7 @@ class AesCryptoImpl extends AesCryptoBase {
     final key = await _importKey(keyBytes, ['decrypt']);
     final algorithm = _aesCtrAlgorithm(ivBytes);
     final plainBuffer =
-        await _jsCrypto.subtle.decrypt(algorithm, key, cipherBytes.toJS).toDart;
+        await _jsCrypto.subtle.decrypt(algorithm, CryptoKey._(key), cipherBytes.toJS).toDart;
     return plainBuffer.toDart.asUint8List();
   }
 
@@ -106,7 +106,7 @@ class AesCryptoImpl extends AesCryptoBase {
   // Private helpers
   // -------------------------------------------------------------------------
 
-  Future<CryptoKey> _importKey(Uint8List keyBytes, List<String> usages) async {
+  Future<JSObject> _importKey(Uint8List keyBytes, List<String> usages) async {
     final algorithm = _aesCtrKeyAlgorithm();
     final usagesJs = <JSString>[for (final u in usages) u.toJS].toJS;
     return _jsCrypto.subtle

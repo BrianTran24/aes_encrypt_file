@@ -1,6 +1,8 @@
 # AES Encrypt File
 
-A high-performance Flutter plugin for AES-256 file encryption and decryption, optimized with native C/C++ implementations for maximum speed and efficiency.
+A high-performance Flutter plugin for **AES-256-CTR file encryption and decryption**. Features native C/C++ implementations (OpenSSL on Android, CommonCrypto on iOS) for maximum speed, plus a pure-Dart fallback (PointyCastle) for all platforms.
+
+Perfect for securely encrypting/decrypting files of any size with minimal memory overhead.
 
 ## 🚀 Features
 

@@ -1,0 +1,55 @@
+# Build and analysis files
+build/
+.dart_tool/
+.build/
+*.iml
+
+# Compiled binaries
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Flutter specific
+.packages
+pubspec.lock
+.coverage
+coverage/
+
+# Example app (already published separately)
+example/
+
+# Android
+android/.gradle/
+android/local.properties
+android/build/
+android/.settings/
+android/.classpath
+android/.project
+
+# iOS
+ios/Pods/
+ios/Podfile.lock
+ios/.symlinks/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.pyo
+*.pem
+.env
+.git/
+.gitignore
+
