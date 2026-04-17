@@ -35,6 +35,12 @@ android/build/
 android/.settings/
 android/.classpath
 android/.project
+# Keep Android plugin sources in the published package.
+!android/src/main/AndroidManifest.xml
+!android/src/main/kotlin/
+!android/src/main/kotlin/**
+!android/src/main/cpp/
+!android/src/main/cpp/**
 
 # iOS
 ios/Pods/
@@ -52,4 +58,3 @@ ios/Flutter/Flutter.podspec
 .env
 .git/
 .gitignore
-
