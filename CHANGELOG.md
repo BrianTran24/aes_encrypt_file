@@ -1,3 +1,6 @@
+## [0.0.10]
+- Fix: ensure Android Kotlin plugin source (`android/src/main/kotlin/com/example/aes_encrypt_file/AesEncryptFilePlugin.kt`) is included when publishing.
+
 ## [0.0.1]
 - Encrypt files using AES standard CTR mode.
 
