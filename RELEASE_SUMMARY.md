@@ -1,9 +1,9 @@
-# Summary of Changes for v0.0.9 Release
+# Summary of Changes for v0.0.11 Release
 
 ## Files Modified
 
 ### 1. **pubspec.yaml**
-- ✅ Updated version from `0.0.8` to `0.0.9`
+- ✅ Updated version from `0.0.10` to `0.0.11`
 - ✅ Improved description to be more comprehensive
 - ✅ Updated SDK constraint to `^3.3.0` (supports inline-class feature)
 - ✅ Added `repository` URL
@@ -26,7 +26,7 @@
   - Contributing guidelines
 
 ### 3. **CHANGELOG.md**
-- ✅ Added v0.0.9 release notes with detailed changes
+- ✅ Added v0.0.11 release notes with detailed changes
 - ✅ Cleaned up older entries for better readability
 - ✅ Structured entries chronologically
 
@@ -71,7 +71,7 @@ See **PUBLISH_GUIDE.md** for detailed instructions.
 ## Breaking Changes
 None - This is a documentation and maintenance release.
 
-## New Features in v0.0.9
+## New Features in v0.0.11
 None - This release focuses on documentation, code quality, and package configuration improvements.
 
 ## Bug Fixes

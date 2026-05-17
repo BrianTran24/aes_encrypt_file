@@ -10,7 +10,7 @@ Perfect for securely encrypting/decrypting files of any size with minimal memory
 - **AES-256-CTR Encryption**: Industry-standard encryption with Counter mode
 - **Large File Support**: Optimized with 256KB buffer for efficient processing of large files
 - **Low Memory Footprint**: Streaming encryption/decryption without loading entire files into memory
-- **Cross-Platform**: Full support for Android and iOS
+- **Cross-Platform**: Full support for Android, iOS, and Web
 - **Simple API**: Easy-to-use Flutter interface for encryption and decryption operations
 
 ## 📊 Performance
@@ -48,7 +48,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  aes_encrypt_file: ^0.0.4
+  aes_encrypt_file: ^0.0.11
 ```
 
 Then run:
@@ -243,7 +243,7 @@ final key = await storage.read(key: 'encryption_key');
 |----------|-----------|----------------|
 | Android  | ✅        | OpenSSL (C)    |
 | iOS      | ✅        | CommonCrypto (C) |
-| Web      | ❌        | Not supported  |
+| Web      | ✅        | WebCrypto API (Dart) |
 | Desktop  | ❌        | Not yet supported |
 
 ## 🔍 API Reference

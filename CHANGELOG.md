@@ -1,3 +1,8 @@
+## [0.0.11]
+- Maintenance release for pub.dev publication.
+- Docs: update installation version in README.
+- Chore: sync iOS podspec metadata with package information.
+
 ## [0.0.10]
 - Fix: ensure Android Kotlin plugin source (`android/src/main/kotlin/com/example/aes_encrypt_file/AesEncryptFilePlugin.kt`) is included when publishing.
 
@@ -23,5 +28,5 @@
 - Fix: decrypted file size issue with iv
 ## [0.0.8]
 - Android : support 16kb
-## [0.0.]
+## [0.0.9]
 - Web support : WebCrypto API

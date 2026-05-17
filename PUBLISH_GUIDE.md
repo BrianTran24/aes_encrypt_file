@@ -1,4 +1,4 @@
-# Publishing Guide for aes_encrypt_file v0.0.9
+# Publishing Guide for aes_encrypt_file v0.0.11
 
 ## Prerequisites
 
@@ -11,8 +11,6 @@
 ## Steps to Publish
 
 ### 1. Verify Everything is Ready
-```bash
-cd /Users/hieutran/freelance/2025/dcg/ase_encrypt_file
 
 # Check for any outstanding issues
 flutter pub publish --dry-run
@@ -43,7 +41,7 @@ This will:
 The package will appear on pub.dev within a few minutes. You can monitor at:
 https://pub.dev/packages/aes_encrypt_file
 
-## What's Included in v0.0.9
+## What's Included in v0.0.11
 
 ### Added
 - Comprehensive README documentation with API reference and examples
@@ -105,8 +103,8 @@ The following are excluded via `.pubignore`:
 
 1. Tag the release in Git:
    ```bash
-   git tag v0.0.9
-   git push origin v0.0.9
+   git tag v0.0.11
+   git push origin v0.0.11
    ```
 
 2. Update GitHub release notes
