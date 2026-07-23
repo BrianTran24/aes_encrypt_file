@@ -9,7 +9,13 @@ import 'package:path_provider/path_provider.dart';
 import 'memory_monitor.dart';
 
 void main() {
-  runApp(const MyApp());
+  runZonedGuarded(() {
+    runApp(const MyApp());
+  }, (error, stackTrace) {
+    // Handle uncaught errors here
+    print('Uncaught error: $error');
+    print('Stack trace: $stackTrace');
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -87,7 +93,6 @@ class _MyAppState extends State<MyApp> {
       final directory = await getApplicationDocumentsDirectory();
       final fileName = _selectedImagePath!.split('/').last;
       final encryptedPath = '${directory.path}/encrypted_$fileName';
-
 
       this.encryptionKey = encryptionKey;
 

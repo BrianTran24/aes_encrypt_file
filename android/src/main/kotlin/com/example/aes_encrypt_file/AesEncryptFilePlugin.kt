@@ -1,5 +1,8 @@
 package com.example.aes_encrypt_file
 
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -9,6 +12,7 @@ import java.io.File
 
 class AesEncryptFilePlugin: FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "aes_encrypt_file")
@@ -30,9 +34,15 @@ class AesEncryptFilePlugin: FlutterPlugin, MethodCallHandler {
                     Thread {
                         try {
                             val success = nativeEncryptFile(inputPath, outputPath, key, iv)
-                            result.success(success == 0)
+                            Log.d("AesEncryptFilePlugin", "encryptFile result: $success (0=success)")
+                            mainHandler.post {
+                                result.success(success == 0)
+                            }
                         } catch (e: Exception) {
-                            result.error("ENCRYPT_FAILED", e.message, null)
+                            Log.e("AesEncryptFilePlugin", "encryptFile error", e)
+                            mainHandler.post {
+                                result.error("ENCRYPT_FAILED", e.message, null)
+                            }
                         }
                     }.start()
                 } else {
@@ -49,9 +59,15 @@ class AesEncryptFilePlugin: FlutterPlugin, MethodCallHandler {
                     Thread {
                         try {
                             val success = nativeDecryptFile(inputPath, outputPath, key, iv)
-                            result.success(success == 0)
+                            Log.d("AesEncryptFilePlugin", "decryptFile result: $success (0=success)")
+                            mainHandler.post {
+                                result.success(success == 0)
+                            }
                         } catch (e: Exception) {
-                            result.error("DECRYPT_FAILED", e.message, null)
+                            Log.e("AesEncryptFilePlugin", "decryptFile error", e)
+                            mainHandler.post {
+                                result.error("DECRYPT_FAILED", e.message, null)
+                            }
                         }
                     }.start()
                 } else {
@@ -64,9 +80,14 @@ class AesEncryptFilePlugin: FlutterPlugin, MethodCallHandler {
                     Thread {
                         try {
                             val size = nativeGetFileSize(path)
-                            result.success(size)
+                            mainHandler.post {
+                                result.success(size)
+                            }
                         } catch (e: Exception) {
-                            result.error("SIZE_ERROR", e.message, null)
+                            Log.e("AesEncryptFilePlugin", "getFileSize error", e)
+                            mainHandler.post {
+                                result.error("SIZE_ERROR", e.message, null)
+                            }
                         }
                     }.start()
                 } else {

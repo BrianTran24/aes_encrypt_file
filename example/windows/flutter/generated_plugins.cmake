@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  aes_encrypt_file
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

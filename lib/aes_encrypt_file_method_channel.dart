@@ -26,8 +26,9 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
       }
       final bool result = await methodChannel.invokeMethod('decryptFile', args);
       return result;
-    } on PlatformException {
-      return false;
+    } on PlatformException catch (e, st) {
+      dev.log('decryptFile failed: $e', name: 'MethodChannelAesEncryptFile', error: e, stackTrace: st);
+      rethrow;
     }
   }
 
@@ -44,8 +45,9 @@ class MethodChannelAesEncryptFile extends AesEncryptFilePlatform {
       }
       final bool result = await methodChannel.invokeMethod('encryptFile', args);
       return result;
-    } on PlatformException {
-      return false;
+    } on PlatformException catch (e, st) {
+      dev.log('encryptFile failed: $e', name: 'MethodChannelAesEncryptFile', error: e, stackTrace: st);
+      rethrow;
     }
   }
 
