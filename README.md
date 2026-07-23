@@ -48,7 +48,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  aes_encrypt_file: ^0.0.11
+  aes_encrypt_file: ^0.0.12
 ```
 
 Then run:

@@ -1,3 +1,10 @@
+## [0.0.12]
+- Maintenance: Bump version for stable release.
+- Fix: Improve type safety in Web implementation for WebCrypto API.
+- Performance: Add `.pubignore` to exclude unnecessary files and reduce package size.
+- Docs: Comprehensive update to README with better examples and architecture details.
+- Chore: Sync metadata and repository links.
+
 ## [0.0.11]
 - Maintenance release for pub.dev publication.
 - Docs: update installation version in README.
