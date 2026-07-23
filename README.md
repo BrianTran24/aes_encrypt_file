@@ -48,7 +48,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  aes_encrypt_file: ^0.0.12
+  aes_encrypt_file: ^0.0.13
 ```
 
 Then run:
@@ -224,10 +224,15 @@ final key = await storage.read(key: 'encryption_key');
 - Compiled with -O3 optimization for maximum performance
 - JNI wrapper for Flutter integration
 
-**iOS**:
-- Uses CommonCrypto framework (built into iOS)
+**iOS & macOS**:
+- Uses CommonCrypto framework (built into iOS/macOS)
 - Compiled with -O3 optimization
-- Objective-C bridge for Flutter integration
+- Objective-C bridge (iOS) or Swift (macOS) for Flutter integration
+
+**Windows**:
+- Uses BCrypt (Best Cryptography) API
+- Native C++ implementation
+- Efficient file I/O for large file support
 
 ### Encryption Process
 
@@ -244,7 +249,8 @@ final key = await storage.read(key: 'encryption_key');
 | Android  | ✅        | OpenSSL (C)    |
 | iOS      | ✅        | CommonCrypto (C) |
 | Web      | ✅        | WebCrypto API (Dart) |
-| Desktop  | ❌        | Not yet supported |
+| macOS    | ✅        | CommonCrypto (C) |
+| Windows  | ✅        | BCrypt (C++)   |
 
 ## 🔍 API Reference
 

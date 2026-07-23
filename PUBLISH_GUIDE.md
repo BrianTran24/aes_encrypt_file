@@ -1,4 +1,4 @@
-# Publishing Guide for aes_encrypt_file v0.0.11
+# Publishing Guide for aes_encrypt_file v0.0.13
 
 ## Prerequisites
 
@@ -103,8 +103,8 @@ The following are excluded via `.pubignore`:
 
 1. Tag the release in Git:
    ```bash
-   git tag v0.0.11
-   git push origin v0.0.11
+   git tag v0.0.13
+   git push origin v0.0.13
    ```
 
 2. Update GitHub release notes

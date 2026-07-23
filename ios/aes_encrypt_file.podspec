@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'aes_encrypt_file'
-  s.version          = '0.0.11'
+  s.version          = '0.0.13'
   s.summary          = 'High-performance AES-256 file encryption and decryption plugin for Flutter.'
   s.description      = <<-DESC
 High-performance Flutter plugin for AES-256 file encryption and decryption with native C/C++ implementation.

@@ -1,3 +1,8 @@
+## [0.0.13]
+- Feature: Added macOS support with native CommonCrypto implementation.
+- Feature: Added Windows support with native BCrypt implementation.
+- Improvement: Sync version across all platform configurations (podspecs).
+
 ## [0.0.12]
 - Maintenance: Bump version for stable release.
 - Fix: Improve type safety in Web implementation for WebCrypto API.
