@@ -13,6 +13,7 @@ int crypto_encrypt_file(const char* input_path, const char* output_path, const c
 int crypto_encrypt_file_with_iv(const char* input_path, const char* output_path, const char* key, const char* iv_string);
 int crypto_decrypt_file(const char* input_path, const char* output_path, const char* key);
 int crypto_decrypt_file_with_iv(const char* input_path, const char* output_path, const char* key, const char* iv_string);
+int64_t crypto_get_file_size(const char* file_path);
 
 
 #ifdef __cplusplus

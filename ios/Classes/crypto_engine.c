@@ -395,13 +395,13 @@ int crypto_decrypt_file_with_iv(const char* input_path, const char* output_path,
     return 0;
 }
 
-//int64_t crypto_get_file_size(const char* file_path) {
-//    struct stat st;
-//    if (stat(file_path, &st) == 0) {
-//        return st.st_size;
-//    }
-//    return -1;
-//}
+int64_t crypto_get_file_size(const char* file_path) {
+    struct stat st;
+    if (stat(file_path, &st) == 0) {
+        return (int64_t)st.st_size;
+    }
+    return -1;
+}
 //
 //char* crypto_encrypt_data(const char* data, int64_t data_len, const char* key, int64_t* output_len) {
 //    if (!data || data_len <= 0 || !key) {

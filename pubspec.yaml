@@ -46,6 +46,8 @@ flutter:
         pluginClass: AesEncryptFilePlugin
       ios:
         pluginClass: AesEncryptFilePlugin
+      macos:
+        pluginClass: AesEncryptFilePlugin
       windows:
         pluginClass: AesEncryptFilePlugin
       web:
