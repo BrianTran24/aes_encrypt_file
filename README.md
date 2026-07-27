@@ -252,6 +252,10 @@ final key = await storage.read(key: 'encryption_key');
 | macOS    | ✅        | CommonCrypto (C) |
 | Windows  | ✅        | BCrypt (C++)   |
 
+### iOS Build Configuration
+
+This plugin works **without CocoaPods** on Flutter 3.24+ (Swift Package Manager support). For Flutter versions < 3.24, the plugin includes a `.podspec` file for backwards compatibility. The plugin has no external dependencies and uses only built-in iOS frameworks (CommonCrypto for encryption, Security for random number generation).
+
 ## 🔍 API Reference
 
 ### `AesEncryptFile`
