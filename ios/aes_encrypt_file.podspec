@@ -10,8 +10,8 @@ High-performance Flutter plugin for AES-256 file encryption and decryption with 
   s.author           = { 'BrianTran24' => 'briantran24@users.noreply.github.com' }
 
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'aes_encrypt_file/Sources/**/*.{h,c,swift}'
+  s.public_header_files = 'aes_encrypt_file/Sources/aes_encrypt_file_c/include/**/*.h'
 
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'

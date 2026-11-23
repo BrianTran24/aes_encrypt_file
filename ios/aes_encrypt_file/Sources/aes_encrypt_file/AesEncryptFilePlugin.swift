@@ -1,6 +1,12 @@
 import Flutter
 import UIKit
 
+// With Swift Package Manager the C engine is a separate module; with
+// CocoaPods it is compiled into this one, so there is nothing to import.
+#if canImport(aes_encrypt_file_c)
+import aes_encrypt_file_c
+#endif
+
 public class AesEncryptFilePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "aes_encrypt_file", binaryMessenger: registrar.messenger())
