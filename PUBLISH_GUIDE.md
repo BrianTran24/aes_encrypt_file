@@ -79,9 +79,11 @@ The package publishes the following directory structure:
 │   ├── aes_encrypt_file.podspec
 │   └── aes_encrypt_file/ (Swift Package Manager + Native CommonCrypto C engine)
 ├── macos/
-│   └── aes_encrypt_file.podspec
+│   ├── aes_encrypt_file.podspec
+│   └── aes_encrypt_file/ (Swift Package Manager + Native CommonCrypto C engine)
 ├── windows/
-│   └── Native C++ BCrypt implementation
+│   ├── CMakeLists.txt
+│   └── Native C++ BCrypt plugin & engine
 ├── pubspec.yaml (Package configuration)
 ├── README.md (Full documentation)
 ├── CHANGELOG.md (Version history)

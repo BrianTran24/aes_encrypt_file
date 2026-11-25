@@ -262,4 +262,15 @@ int CryptoEngine::DoDecryptFile(const std::string& input_path, const std::string
     return 0;
 }
 
+int64_t CryptoEngine::GetFileSize(const std::string& file_path) {
+    try {
+        std::filesystem::path p_file(Utf8ToUtf16(file_path));
+        if (std::filesystem::exists(p_file)) {
+            return static_cast<int64_t>(std::filesystem::file_size(p_file));
+        }
+    } catch (...) {
+    }
+    return -1;
+}
+
 } // namespace aes_encrypt_file

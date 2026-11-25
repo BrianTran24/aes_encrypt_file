@@ -1,5 +1,6 @@
 ## [0.0.14]
-- Feature: Added Swift Package Manager (SPM) support for iOS.
+- Feature: Added Swift Package Manager (SPM) support for iOS and macOS.
+- Fix: Included missing macOS and Windows native plugin registration and CMake files in the published package.
 - Docs: Updated README, publishing guide, and release summary for cross-platform and SPM support.
 - Chore: Sync package version across `pubspec.yaml` and podspecs.
 

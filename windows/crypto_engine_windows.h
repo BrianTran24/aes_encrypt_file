@@ -10,6 +10,7 @@ class CryptoEngine {
 public:
     static int DoEncryptFile(const std::string& input_path, const std::string& output_path, const std::string& key, const std::string& iv_string = "");
     static int DoDecryptFile(const std::string& input_path, const std::string& output_path, const std::string& key, const std::string& iv_string = "");
+    static int64_t GetFileSize(const std::string& file_path);
 
 private:
     static bool PrepareKey(const std::string& key, std::vector<unsigned char>& prepared_key);

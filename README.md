@@ -11,7 +11,7 @@ Perfect for securely encrypting/decrypting files of any size with minimal memory
 - **Large File Support**: Optimized with 256KB buffer for efficient processing of large files
 - **Low Memory Footprint**: Streaming encryption/decryption without loading entire files into memory
 - **Cross-Platform**: Full support for Android, iOS, macOS, Windows, and Web
-- **Swift Package Manager**: Full SPM and CocoaPods support for iOS
+- **Swift Package Manager**: Full SPM and CocoaPods support for iOS and macOS
 - **Simple API**: Easy-to-use Flutter interface for encryption and decryption operations
 
 ## 📊 Performance
@@ -310,6 +310,7 @@ The plugin uses a 256KB buffer by default, which is optimized for most use cases
 ```c
 // android/src/main/cpp/crypto_engine.c
 // ios/aes_encrypt_file/Sources/aes_encrypt_file_c/crypto_engine.c
+// macos/aes_encrypt_file/Sources/aes_encrypt_file_c/crypto_engine.c
 #define BUFFER_SIZE (256 * 1024)  // Adjust as needed
 ```
 
