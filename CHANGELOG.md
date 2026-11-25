@@ -1,3 +1,8 @@
+## [0.0.14]
+- Feature: Added Swift Package Manager (SPM) support for iOS.
+- Docs: Updated README, publishing guide, and release summary for cross-platform and SPM support.
+- Chore: Sync package version across `pubspec.yaml` and podspecs.
+
 ## [0.0.13]
 - Feature: Added macOS support with native CommonCrypto implementation.
 - Feature: Added Windows support with native BCrypt implementation.

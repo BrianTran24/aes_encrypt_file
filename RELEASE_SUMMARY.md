@@ -1,39 +1,34 @@
-# Summary of Changes for v0.0.13 Release
+# Summary of Changes for v0.0.14 Release
 
 ## Major Features
 
-### 1. macOS Support
-- Implemented native AES-256-CTR encryption/decryption using Apple's **CommonCrypto** framework.
-- High-performance C engine shared with iOS for consistency.
+### 1. Swift Package Manager (SPM) Support for iOS
+- Added `ios/aes_encrypt_file/Package.swift` for Flutter Swift Package Manager integration.
+- Restructured iOS sources into `ios/aes_encrypt_file/Sources/aes_encrypt_file` (Swift plugin) and `ios/aes_encrypt_file/Sources/aes_encrypt_file_c` (native CommonCrypto C engine).
+- Maintained backward compatibility with CocoaPods via `ios/aes_encrypt_file.podspec`.
 
-### 2. Windows Support
-- Implemented native AES-256-CTR encryption/decryption using Windows **BCrypt** (CNG) API.
-- Native C++ implementation with optimized file streaming.
+### 2. Documentation & Metadata Improvements
+- Updated `README.md` to reflect all supported platforms (Android, iOS, macOS, Windows, Web), SPM support, updated file paths, and MIT License.
+- Updated `PUBLISH_GUIDE.md` and excluded internal markdown guides from pub.dev archive via `.pubignore`.
 
 ## Files Modified
 
 ### 1. **pubspec.yaml**
-- ✅ Bumped version to `0.0.13`
+- ✅ Bumped version to `0.0.14`
 
 ### 2. **CHANGELOG.md**
-- ✅ Added v0.0.13 release notes documenting macOS and Windows support.
+- ✅ Added v0.0.14 release notes documenting iOS Swift Package Manager support and documentation updates.
 
 ### 3. **ios/aes_encrypt_file.podspec** & **macos/aes_encrypt_file.podspec**
-- ✅ Updated versions to `0.0.13` to match the package version.
+- ✅ Updated versions to `0.0.14` to match the package version.
 
 ### 4. **README.md**
-- ✅ Updated installation version to `^0.0.13`.
-- ✅ Updated Platform Support matrix to include macOS and Windows.
-- ✅ Added Architecture details for macOS (CommonCrypto) and Windows (BCrypt).
-
-## Validation Results
-
-✅ **Dart Analyze**: No errors or warnings
-✅ **Pub Validation**: Dry-run verification passed
-✅ **Native Build**: macOS and Windows implementations verified in example app
+- ✅ Updated installation version to `^0.0.14`.
+- ✅ Synced feature list and architecture sections with macOS, Windows, and iOS SPM support.
+- ✅ Fixed license reference to MIT License.
 
 ## Breaking Changes
 None.
 
 ## Dependencies
-No new external dependencies. Windows implementation uses system `bcrypt.lib`.
+No new external dependencies.

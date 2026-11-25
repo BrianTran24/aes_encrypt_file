@@ -1,16 +1,17 @@
 # AES Encrypt File
 
-A high-performance Flutter plugin for **AES-256-CTR file encryption and decryption**. Features native C/C++ implementations (OpenSSL on Android, CommonCrypto on iOS) for maximum speed, plus a pure-Dart fallback (PointyCastle) for all platforms.
+A high-performance Flutter plugin for **AES-256-CTR file encryption and decryption**. Features native C/C++ implementations (OpenSSL on Android, CommonCrypto on iOS & macOS, BCrypt on Windows) for maximum speed, plus WebCrypto API / pure-Dart fallback (PointyCastle) for Web.
 
 Perfect for securely encrypting/decrypting files of any size with minimal memory overhead.
 
 ## 🚀 Features
 
-- **High Performance**: Native C/C++ implementation using OpenSSL (Android) and CommonCrypto (iOS)
+- **High Performance**: Native C/C++ implementation using OpenSSL (Android), CommonCrypto (iOS & macOS), and BCrypt (Windows)
 - **AES-256-CTR Encryption**: Industry-standard encryption with Counter mode
 - **Large File Support**: Optimized with 256KB buffer for efficient processing of large files
 - **Low Memory Footprint**: Streaming encryption/decryption without loading entire files into memory
-- **Cross-Platform**: Full support for Android, iOS, and Web
+- **Cross-Platform**: Full support for Android, iOS, macOS, Windows, and Web
+- **Swift Package Manager**: Full SPM and CocoaPods support for iOS
 - **Simple API**: Easy-to-use Flutter interface for encryption and decryption operations
 
 ## 📊 Performance
@@ -39,7 +40,7 @@ Based on the example app with real-world testing:
 
 - **Speed**: 3-10x faster than pure Dart implementations
 - **Memory Efficiency**: Streaming approach with fixed buffer size
-- **Battle-tested Libraries**: Uses OpenSSL (Android) and CommonCrypto (iOS)
+- **Battle-tested Libraries**: Uses OpenSSL (Android), CommonCrypto (iOS & macOS), and BCrypt (Windows)
 - **Compiler Optimizations**: -O3 optimization level for maximum performance
 
 ## 📦 Installation
@@ -48,7 +49,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  aes_encrypt_file: ^0.0.13
+  aes_encrypt_file: ^0.0.14
 ```
 
 Then run:
@@ -227,7 +228,7 @@ final key = await storage.read(key: 'encryption_key');
 **iOS & macOS**:
 - Uses CommonCrypto framework (built into iOS/macOS)
 - Compiled with -O3 optimization
-- Objective-C bridge (iOS) or Swift (macOS) for Flutter integration
+- Swift bridge for Flutter integration with Swift Package Manager (SPM) & CocoaPods support
 
 **Windows**:
 - Uses BCrypt (Best Cryptography) API
@@ -308,7 +309,7 @@ The plugin uses a 256KB buffer by default, which is optimized for most use cases
 
 ```c
 // android/src/main/cpp/crypto_engine.c
-// ios/Classes/crypto_engine.c
+// ios/aes_encrypt_file/Sources/aes_encrypt_file_c/crypto_engine.c
 #define BUFFER_SIZE (256 * 1024)  // Adjust as needed
 ```
 
@@ -331,7 +332,7 @@ A: Yes, the native implementation is fast enough for real-time use cases.
 
 ## 📄 License
 
-This project is licensed under the BSD-3-Clause License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 

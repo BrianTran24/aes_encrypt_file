@@ -1,4 +1,4 @@
-# Publishing Guide for aes_encrypt_file v0.0.13
+# Publishing Guide for aes_encrypt_file v0.0.14
 
 ## Prerequisites
 
@@ -12,6 +12,7 @@
 
 ### 1. Verify Everything is Ready
 
+```bash
 # Check for any outstanding issues
 flutter pub publish --dry-run
 ```
@@ -41,34 +42,23 @@ This will:
 The package will appear on pub.dev within a few minutes. You can monitor at:
 https://pub.dev/packages/aes_encrypt_file
 
-## What's Included in v0.0.11
+## What's Included in v0.0.14
 
 ### Added
-- Comprehensive README documentation with API reference and examples
-- Performance benchmarking information and guidelines
-- Advanced configuration guide for buffer size optimization
-- FAQ section addressing common questions
-- Contributing and issue reporting guidelines
-- Detailed architecture documentation
-- Security best practices guide for key management
+- Swift Package Manager (SPM) support for iOS (`ios/aes_encrypt_file/Package.swift`)
+- Updated documentation for cross-platform support (Android, iOS, macOS, Windows, Web) and SPM
 
 ### Changed
-- Improved project description in pubspec.yaml
-- Enhanced documentation URLs in pubspec.yaml
-- Refined API documentation for better clarity
-- Updated SDK constraint to ^3.3.0 for inline-class support
-
-### Fixed
-- Documentation formatting and structure
-- Type handling in web implementation
-- Unnecessary imports
+- Migrated iOS plugin layout to Swift Package Manager structure (`ios/aes_encrypt_file/Sources/...`)
+- Synced package version to `0.0.14` across `pubspec.yaml` and podspecs
+- Fixed license and file path references in `README.md`
 
 ## Package Contents
 
-- **Native Implementation**: C/C++ encryption engines for Android (OpenSSL) and iOS (CommonCrypto)
-- **Web Support**: Pure Dart implementation using PointyCastle for web platform
+- **Native Implementation**: C/C++ encryption engines for Android (OpenSSL), iOS & macOS (CommonCrypto), and Windows (BCrypt)
+- **Web Support**: WebCrypto API / Pure Dart fallback using PointyCastle for web platform
 - **High Performance**: 256KB buffer for efficient large file handling
-- **Cross-platform**: Full support for Android, iOS, and Web
+- **Cross-platform**: Full support for Android, iOS, macOS, Windows, and Web
 
 ## Files Published
 
@@ -84,9 +74,14 @@ The package publishes the following directory structure:
 │       ├── aes_crypto_web.dart
 │       └── crypto_utils.dart
 ├── android/
-│   └── src/main/cpp/ (Native C code + OpenSSL binaries)
+│   └── src/main/ (Kotlin plugin + Native C code + OpenSSL binaries)
 ├── ios/
-│   └── Classes/ (Native Objective-C + CommonCrypto bridge)
+│   ├── aes_encrypt_file.podspec
+│   └── aes_encrypt_file/ (Swift Package Manager + Native CommonCrypto C engine)
+├── macos/
+│   └── aes_encrypt_file.podspec
+├── windows/
+│   └── Native C++ BCrypt implementation
 ├── pubspec.yaml (Package configuration)
 ├── README.md (Full documentation)
 ├── CHANGELOG.md (Version history)
@@ -97,14 +92,15 @@ The following are excluded via `.pubignore`:
 - Build artifacts and cache files
 - IDE configuration files
 - Example app
+- Internal release notes (`PUBLISH_GUIDE.md`, `RELEASE_SUMMARY.md`)
 - Git configuration
 
 ## After Publishing
 
 1. Tag the release in Git:
    ```bash
-   git tag v0.0.13
-   git push origin v0.0.13
+   git tag v0.0.14
+   git push origin v0.0.14
    ```
 
 2. Update GitHub release notes
@@ -125,5 +121,4 @@ Run `flutter pub publish --dry-run` to see what warnings exist and fix them befo
 Re-authenticate with: `dart pub token add https://pub.dev`
 
 ### Version already exists
-Update the version in pubspec.yaml and try again.
-
+Update the version in `pubspec.yaml` and try again.

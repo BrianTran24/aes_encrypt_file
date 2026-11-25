@@ -49,6 +49,10 @@ ios/.symlinks/
 ios/Flutter/Flutter.framework/
 ios/Flutter/Flutter.podspec
 
+# Internal documentation
+PUBLISH_GUIDE.md
+RELEASE_SUMMARY.md
+
 # Miscellaneous
 *.class
 *.log
